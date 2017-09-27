@@ -36,13 +36,13 @@ public class Greeting {
     }
 
 
-
     public String userInfo(String universalid) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String info = mapper.writeValueAsString(this.process(universalid));
         //return this.process(universalid).toString();
         return info;
     }
+    // test
 
     public String showBP(BloodPressurePublisher bp){
         Integer systolic = bp.getSystolic();
