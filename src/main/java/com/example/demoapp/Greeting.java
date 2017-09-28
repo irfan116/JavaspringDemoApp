@@ -27,18 +27,6 @@ public class Greeting {
     }
 
 
-
-
-
-    //public long getId() {
-       // return id;
-    //}
-
-   // public String getContent() {
-        //return content;
-   // }
-
-
     public String userInfo(String universalid) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String info = mapper.writeValueAsString(this.process(universalid));
