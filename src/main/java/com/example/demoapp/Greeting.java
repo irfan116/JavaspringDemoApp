@@ -13,15 +13,14 @@ import java.io.IOException;
 
 public class Greeting {
 
-    private final long id;
-    private final String content;
     private UserInfoService userInfoService;
     private BloodPressureEvaluationService bloodPressureEvaluationService;
 
+    public Greeting(){}
 
-    public Greeting(long id, String content, UserInfoService userInfoService,BloodPressureEvaluationService bloodPressureEvaluationService) {
-        this.id = id;
-        this.content = content;
+    public Greeting(UserInfoService userInfoService,BloodPressureEvaluationService bloodPressureEvaluationService) {
+        //this.id = id;
+        //this.content = content;
         this.userInfoService = userInfoService;
         this.bloodPressureEvaluationService = bloodPressureEvaluationService;
 
@@ -29,13 +28,15 @@ public class Greeting {
 
 
 
-    public long getId() {
-        return id;
-    }
 
-    public String getContent() {
-        return content;
-    }
+
+    //public long getId() {
+       // return id;
+    //}
+
+   // public String getContent() {
+        //return content;
+   // }
 
 
     public String userInfo(String universalid) throws IOException {
