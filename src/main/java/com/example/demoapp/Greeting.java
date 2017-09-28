@@ -16,12 +16,14 @@ public class Greeting {
     private final long id;
     private final String content;
     private UserInfoService userInfoService;
+    private BloodPressureEvaluationService bloodPressureEvaluationService;
 
 
-    public Greeting(long id, String content, UserInfoService userInfoService) {
+    public Greeting(long id, String content, UserInfoService userInfoService,BloodPressureEvaluationService bloodPressureEvaluationService) {
         this.id = id;
         this.content = content;
         this.userInfoService = userInfoService;
+        this.bloodPressureEvaluationService = bloodPressureEvaluationService;
 
     }
 
@@ -45,9 +47,20 @@ public class Greeting {
     // test
 
     public String showBP(BloodPressurePublisher bp){
-        Integer systolic = bp.getSystolic();
-        Integer diastolic = bp.getDiastolic();
-        return String.format("%d,%d",systolic,diastolic);
+        String str = String.format("%d,%d",bp.getSystolic(),bp.getDiastolic());
+        switch (bloodPressureEvaluationService.getStatus(bp.getSystolic(),bp.getDiastolic())){
+            case CRITICAL:
+                str = String.format("BP:%d/%d is Critical",bp.getSystolic(),bp.getDiastolic());
+                break;
+            case ELEVATED:
+                str = String.format("BP:%d/%d is Evalated",bp.getSystolic(),bp.getDiastolic());
+                break;
+            case NORMAL:
+                str = String.format("BP:%d/%d is Evalated",bp.getSystolic(),bp.getDiastolic());
+                break;
+        }
+        //return String.format("%d,%d",bp.getSystolic(),bp.getDiastolic();
+        return str;
     }
 
     public UsersContact process(String universalId) throws IOException{

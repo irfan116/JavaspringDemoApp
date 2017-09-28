@@ -17,18 +17,20 @@ public class WelcomeController {
     private final AtomicLong counter = new AtomicLong();
     @Autowired
     private UserInfoService userInfoService;
+    @Autowired
+    private BloodPressureEvaluationService bloodPressureEvaluationService;
 
 
     @RequestMapping("/welcome")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) throws UsernameNotFoundException {
         return new Greeting(counter.incrementAndGet(),
-                String.format(template, name),userInfoService);
+                String.format(template, name),userInfoService,bloodPressureEvaluationService);
     }
 
     @RequestMapping("/userinfo")
     public String getinfo(@RequestParam(value = "universalid",defaultValue = "08453776-1ee3-4365-87db-0817c8320844") String universalId) throws IOException{
         Greeting welcome = new Greeting(counter.incrementAndGet(),
-                String.format(template, universalId),userInfoService);
+                String.format(template, universalId),userInfoService,bloodPressureEvaluationService);
         return welcome.userInfo(universalId);
     }
 
@@ -36,7 +38,7 @@ public class WelcomeController {
     public String bloodpressuer(@RequestParam(value = "universalid",defaultValue = "08453776-1ee3-4365-87db-0817c8320844") String universalId,@RequestParam(value = "systolic",defaultValue = "120") Integer systolic,@RequestParam(value = "diastolic",defaultValue = "90") Integer diastolic) throws IOException{
         BloodPressurePublisher bp = new BloodPressurePublisher(systolic,diastolic);
         Greeting welcome = new Greeting(counter.incrementAndGet(),
-                String.format(template, universalId),userInfoService);
+                String.format(template, universalId),userInfoService,bloodPressureEvaluationService);
         return welcome.showBP(bp);
     }
 
