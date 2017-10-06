@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.sql.DataSource;
 
 @RestController
+@RequestMapping("/api")
 public class WelcomeController {
 
     //private static final String template = "Welcome, %s!";
