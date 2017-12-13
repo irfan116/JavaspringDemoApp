@@ -1,8 +1,11 @@
 package com.example.demoapp;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.example.demoapp.domain.user.Group;
+import com.example.demoapp.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +24,9 @@ public class WelcomeController {
     private UserInfoService userInfoService;
     @Autowired
     private BloodPressureEvaluationService bloodPressureEvaluationService;
+
+    @Autowired
+    private GroupService groupService;
 
 
    /* @RequestMapping("/welcome")
@@ -42,6 +48,19 @@ public class WelcomeController {
         BloodPressurePublisher bp = new BloodPressurePublisher(systolic,diastolic);
         Greeting welcome = new Greeting(userInfoService,bloodPressureEvaluationService);
         return welcome.showBP(bp);
+    }
+
+    @RequestMapping(value = "/group", method = RequestMethod.GET)
+    public Group viewGroup(@RequestParam(value = "id",defaultValue = "1") Integer id){
+        System.out.println("the id is===" + id);
+        Group group = groupService.find(id);
+        return group;
+    }
+
+    @RequestMapping(value = "/groups", method = RequestMethod.GET)
+    public List<Group> showGroups(){
+        System.out.println("show all groups");
+         return  groupService.findAll();
     }
 
 
